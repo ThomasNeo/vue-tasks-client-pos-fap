@@ -17,13 +17,19 @@
 export default {
   data() {
     return {
-      username: "",
-      password: ""
+      username: "registered_user1",
+      password: "111"
     }
   },
   methods: {
     doLogin(username, password) {
-      alert(`${username}, ${password}`)
+      const baseURL = "https://edimossilva-task-manager.herokuapp.com/auth/login"
+      const params = { username, password }
+
+      this.$http.post(baseURL, params).then(
+        result => console.log(result.data),
+        error => console.log(error.response.data.error_message)
+      )
     }
   }
 }
