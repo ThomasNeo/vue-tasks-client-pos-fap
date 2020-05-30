@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import { routes } from './routes'
 
 const router = new VueRouter({ routes, mode: 'history' })
+const isAuthRequired = record => record.meta.requiresAuth
 
 router.beforeEach((to, from, next) => {
   const isLogged = localStorage.getItem('token')
@@ -12,15 +13,12 @@ router.beforeEach((to, from, next) => {
     return
   }
 
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (localStorage.getItem('token')) {
-      next()
-    } else {
+  if (to.matched.some(isAuthRequired)) {
+    if (!isLogged) {
       next({ name: 'login' })
     }
-  } else {
-    next()
   }
+  next()
 })
 
 export default router
