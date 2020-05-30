@@ -9,7 +9,7 @@
       <label>Password:</label>
       <input type="password" v-model="password" autocomplete="new-password" />
     </div>
-    <button>Login</button>
+    <button @click="doLogin(username, password)">Login</button>
   </div>
 </template>
 
@@ -19,6 +19,11 @@ export default {
     return {
       username: "",
       password: ""
+    }
+  },
+  methods: {
+    doLogin(username, password) {
+      alert(`${username}, ${password}`)
     }
   }
 }
