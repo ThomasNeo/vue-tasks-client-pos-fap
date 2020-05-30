@@ -27,8 +27,8 @@ export default {
     doLogin(username, password) {
       doLoginApi(username, password).then(
         result => {
-          console.log(result.data)
           localStorage.token = result.data.token
+          this.$router.push({ name: 'listTaskGroup' })
         },
         error => console.error(error.response.data.error_message)
       )

@@ -10,6 +10,13 @@ export const routes = [
   {
     name: 'listTaskGroup',
     path: '/taskgroup/list',
-    component: ListTaskGroup
+    component: ListTaskGroup,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '*',
+    component: Login
   }
 ]

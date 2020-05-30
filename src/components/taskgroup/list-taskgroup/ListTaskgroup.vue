@@ -6,6 +6,7 @@
         {{taskgroup.name}}
       </li>
     </ul>
+    <button @click="doLogout()">Logout</button>
   </div>
 </template>
 
@@ -21,6 +22,12 @@ export default {
    getTaskgroupApi().then(response => {
      this.taskgroups = response.data.data
    })
+ },
+ methods: {
+   doLogout() {
+     localStorage.removeItem('token')
+     this.$router.push({ name: 'login' })
+   }
  }
 }
 </script>
