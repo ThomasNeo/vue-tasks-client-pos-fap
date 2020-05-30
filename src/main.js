@@ -6,7 +6,7 @@ import axios from 'axios'
 import { routes } from './routes'
 
 Vue.use(VueRouter)
-const router = new VueRouter({ routes });
+const router = new VueRouter({ routes, mode: "history" });
 
 Vue.prototype.$http = axios
 
