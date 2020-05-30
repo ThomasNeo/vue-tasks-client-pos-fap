@@ -3,7 +3,10 @@
     <h1>List taskgroup</h1>
     <ul>
       <li v-for="taskgroup in taskgroups" :key="taskgroup.id">
-        {{taskgroup.name}}
+        <router-link
+          :to="{ name: 'showTaskGroup', params: { id: taskgroup.id } }">
+            {{taskgroup.name}}
+        </router-link>
       </li>
     </ul>
     <button @click="doLogout()">Logout</button>
@@ -11,7 +14,7 @@
 </template>
 
 <script>
-import { getTaskgroupApi } from './../../../services/api'
+import { getTaskgroupsApi } from './../../../services/api'
 export default {
  data() {
    return {
@@ -19,7 +22,7 @@ export default {
    }
  },
  mounted: function() {
-   getTaskgroupApi().then(response => {
+   getTaskgroupsApi().then(response => {
      this.taskgroups = response.data.data
    })
  },
