@@ -13,6 +13,11 @@
         <br />
         <label for="task_description">Description: {{taskitem.description}}</label>
         <br />
+        <button @click="deleteTask(taskitem.task_id)">Delete</button>
+        &nbsp;
+        &nbsp;
+        <button @click="editTask(taskitem.task_id)">Edit</button>
+        <br />
         <br />
       </li>
     </ul>
@@ -20,7 +25,7 @@
 </template>
 
 <script>
-import { updateTaskitemApi } from './../../../services/api'
+import { updateTaskitemApi, deleteTaskApi, updateTaskApi } from './../../../services/api'
 import { mapState, mapMutations } from 'vuex';
 export default {
   computed: {
@@ -48,6 +53,7 @@ export default {
         checked: taskitem.checked,
         name: taskitem.task.name,
         description: taskitem.task.description,
+        task_id: taskitem.task.id
       }
     },
     isTaskItemChecked(taskitem) {
@@ -62,6 +68,15 @@ export default {
       updateTaskitemApi(mutableTaskItem).then(result => {
         this.setTaskitem(mutableTaskItem)
       })
+    },
+    deleteTask(taskitemID) {
+      deleteTaskApi(taskitemID).then(
+        result => this.$router.go(),
+        error => console.error(error.response.data.error_message)
+      )
+    },
+    editTask(taskitemID) {
+      this.$router.push({ name: 'editTask', params: { idtask: taskitemID }})
     }
   },
 }

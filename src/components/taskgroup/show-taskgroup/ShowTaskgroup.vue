@@ -12,16 +12,40 @@
     <br />
 
     <list-taskitem></list-taskitem>
+    <br />
+    <br />
+    <hr>
+    <br />
+    <br />
+
+    <h2>Create Taskitem</h2>
+    <div>
+      <label>Name:</label>
+      <input type="text" v-model="name" />
+    </div>
+    <br />
+    <div>
+      <label>Description:</label>
+      <input type="text" v-model="description" />
+    </div>
+    <br />
+    <button @click="newTaskitem(name, description, taskgroup.id)">New taskitem</button>
   </div>
 </template>
 
 <script>
 import { mapState, mapMutations } from 'vuex'
-import { getTaskgroupApi } from './../../../services/api'
+import { getTaskgroupApi, createTaskInTaskListApi } from './../../../services/api'
 import ListTaskItem from './../../taskItem/list-taskitem/ListTaskItem'
 
 export default {
   props: ['id'],
+  data() {
+    return {
+      name: "",
+      description: ""
+    }
+  },
   components: {
     "list-taskitem": ListTaskItem
   },
@@ -35,7 +59,13 @@ export default {
     })
   },
   methods: {
-    ...mapMutations(['setTaskgroup'])
+    ...mapMutations(['setTaskgroup']),
+    newTaskitem(name, description, taskListID) {
+      createTaskInTaskListApi({ name, description }, taskListID).then(
+        result => this.$router.go(),
+        error => console.error(error.response.data.error_message)
+      )
+    },
   }
 
 };

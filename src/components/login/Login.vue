@@ -19,8 +19,8 @@ import { doLoginApi } from '../../services/api'
 export default {
   data() {
     return {
-      username: "registered_user1",
-      password: "111"
+      username: "thomas",
+      password: "123456"
     }
   },
   methods: {
