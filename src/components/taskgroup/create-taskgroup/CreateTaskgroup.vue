@@ -30,7 +30,8 @@ export default {
   },
   methods: {
     createTaskgroup(name, description, frequence_type) {
-      createTaskgroupApi({ name, description, frequence_type }).then(result => console.log(result.data.data),
+      createTaskgroupApi({ name, description, frequence_type }).then(
+        result => this.$router.push({ name: 'listTaskGroup' }),
         error => console.error(error.response.data.error_message)
       )
     },

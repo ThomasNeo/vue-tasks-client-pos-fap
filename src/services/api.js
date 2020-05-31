@@ -28,6 +28,12 @@ export const createTaskgroupApi = (taskgroup) => {
   return axios.post(TASKGROUP_URL, params, getRequestConfig());
 }
 
+export const deleteTaskgroupApi = (id) => {
+  const deleteTaskgroupApiURL = `${TASKGROUP_URL}/${id}`
+
+  return axios.delete(deleteTaskgroupApiURL, getRequestConfig());
+}
+
 export const getTaskgroupsApi = () => {
   return axios.get(TASKGROUP_URL, getRequestConfig());
 }

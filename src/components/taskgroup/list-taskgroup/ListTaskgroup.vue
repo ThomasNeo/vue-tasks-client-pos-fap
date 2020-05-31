@@ -7,6 +7,11 @@
           :to="{ name: 'showTaskGroup', params: { id: taskgroup.id } }">
             {{taskgroup.name}}
         </router-link>
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        <button @click="deleteTaskgroup(taskgroup.id)">Delete</button>
       </li>
     </ul>
     <button @click="newTaskgroup()">New taskgroup</button>
@@ -19,7 +24,7 @@
 </template>
 
 <script>
-import { getTaskgroupsApi } from './../../../services/api'
+import { getTaskgroupsApi, deleteTaskgroupApi } from './../../../services/api'
 export default {
  data() {
    return {
@@ -38,6 +43,14 @@ export default {
    },
    newTaskgroup() {
      this.$router.push({ name: 'createTaskGroup' })
+   },
+   deleteTaskgroup(id) {
+     deleteTaskgroupApi(id).then(
+       result => {
+         console.log('Deletado'),
+         this.$router.go()
+        },
+       error => console.error('Deu errado!'))
    }
  }
 }
