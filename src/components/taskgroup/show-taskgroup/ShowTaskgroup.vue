@@ -61,12 +61,11 @@ export default {
   methods: {
     ...mapMutations(['setTaskgroup']),
     newTaskitem(name, description, taskListID) {
-
       createTaskInTaskListApi({ name, description }, taskListID).then(
         result => this.$router.go(),
         error => console.error(error.response.data.error_message)
       )
-    }
+    },
   }
 
 };
