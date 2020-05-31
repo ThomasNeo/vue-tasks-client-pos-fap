@@ -11,11 +11,12 @@
     <label for="frequence_type">Frequence Type: {{taskgroup.frequence_type}}</label>
     <br />
 
-    <list-taskitem v-if="taskgroup.task_in_lists" v-bind:taskitems="taskgroup.task_in_lists"></list-taskitem>
+    <list-taskitem></list-taskitem>
   </div>
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
 import { getTaskgroupApi } from './../../../services/api'
 import ListTaskItem from './../../taskItem/list-taskitem/ListTaskItem'
 
@@ -24,18 +25,18 @@ export default {
   components: {
     "list-taskitem": ListTaskItem
   },
-  data() {
-    return {
-      taskgroup: {}
-    }
+  computed: {
+    ...mapState(["taskgroup"])
   },
   mounted: function() {
     getTaskgroupApi(this.id).then(response => {
-      this.taskgroup = response.data.data
+      this.setTaskgroup(response.data.data)
 
     })
   },
-
+  methods: {
+    ...mapMutations(['setTaskgroup'])
+  }
 
 };
 </script>
