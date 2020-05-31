@@ -11,6 +11,8 @@
     <label for="frequence_type">Frequence Type: {{taskgroup.frequence_type}}</label>
     <br />
 
+    <br />
+    <label for="taskItemsOverview">{{taskItemsOverview}}</label>
     <ul>
       <li v-for="taskitem in formattedTaskitems" :key="taskitem.id">
         <label for="task_checked">Checked: {{taskitem.checked}}</label>
@@ -47,17 +49,28 @@ export default {
         name: taskitem.task.name,
         description: taskitem.task.description,
       }
+    },
+    isTaskItemChecked(taskitem) {
+      return taskitem.checked
     }
   },
   computed: {
     formattedTaskitems: function() {
-      if (!this.taskgroup.task_in_lists) {
+      const { taskgroup, formatTaskItem } = this
+      if (!taskgroup.task_in_lists) {
         return []
       }
 
-      const { task_in_lists: taskItems } = this.taskgroup
+      const { task_in_lists: taskItems } = taskgroup
 
-      return taskItems.map(this.formatTaskItem);
+      return taskItems.map(formatTaskItem);
+    },
+    taskItemsOverview: function() {
+      const { formattedTaskitems, isTaskItemChecked } = this
+      const totalCount = formattedTaskitems.length
+      const checkedCount = formattedTaskitems.filter(isTaskItemChecked).length
+
+      return `${checkedCount} of ${totalCount} task items are checked`
     }
   }
 };
