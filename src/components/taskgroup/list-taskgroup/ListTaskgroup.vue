@@ -9,6 +9,11 @@
         </router-link>
       </li>
     </ul>
+    <button @click="newTaskgroup()">New taskgroup</button>
+    <br />
+    <br />
+    <br />
+    <br />
     <button @click="doLogout()">Logout</button>
   </div>
 </template>
@@ -30,6 +35,9 @@ export default {
    doLogout() {
      localStorage.removeItem('token')
      this.$router.push({ name: 'login' })
+   },
+   newTaskgroup() {
+     this.$router.push({ name: 'createTaskGroup' })
    }
  }
 }

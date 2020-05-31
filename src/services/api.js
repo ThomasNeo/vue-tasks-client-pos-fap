@@ -22,6 +22,12 @@ export const doLoginApi = (username, password) => {
   return axios.post(LOGIN_URL, params)
 }
 
+export const createTaskgroupApi = (taskgroup) => {
+  const params = taskgroup
+
+  return axios.post(TASKGROUP_URL, params, getRequestConfig());
+}
+
 export const getTaskgroupsApi = () => {
   return axios.get(TASKGROUP_URL, getRequestConfig());
 }
